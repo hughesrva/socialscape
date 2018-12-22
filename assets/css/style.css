@@ -1,0 +1,5 @@
+.has-bg-img{
+    background: url('../images/cityscape.jpg')center center;
+    background-size: cover;
+}
+
