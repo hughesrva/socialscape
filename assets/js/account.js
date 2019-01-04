@@ -20,6 +20,7 @@ $(document).ready(function () {
 $("#submitBtn").on("click", function () {
     var inputValue = $("#intInput").val();
     var newBtn = $("<button>").text(inputValue);
+    selInts.push(inputValue);
     $(newBtn).addClass("intBtn");
     $(newBtn).data("value", inputValue);
     $(newBtn).data("state", "sel");
