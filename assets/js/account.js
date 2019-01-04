@@ -5,7 +5,20 @@ var btnValue = "";
 var btnState = "";
 
 $(document).ready(function () {
+
+    // checks to see if interests are already stored locally and adds defaults if not
+    if (localStorage.getItem("unselInts") === null) {
+        unselInts = ["Live Music", "Hiking", "Opera", "Theater", "Movies", "Art Shows"];
+    }
+    else {
+        unselInts = JSON.parse(localStorage.getItem("unselInts"));
+    };
+
+    if (localStorage.getItem("selInts") !== null) {
+        selInts = JSON.parse(localStorage.getItem("selInts"));
+    }
     console.log(unselInts);
+
     // create buttons for unselected interests array items
     for (i = 0; i < unselInts.length; i++) {
         var intBtn = $("<button>").text(unselInts[i]);
@@ -13,6 +26,14 @@ $(document).ready(function () {
         $(intBtn).data("value", unselInts[i]);
         $(intBtn).data("state", "unsel");
         $("#unselInterests").append(intBtn);
+    }
+
+    for (i = 0; i < selInts.length; i++) {
+        var intBtn = $("<button>").text(selInts[i]);
+        $(intBtn).addClass("intBtn");
+        $(intBtn).data("value", selInts[i]);
+        $(intBtn).data("state", "sel");
+        $("#selInterests").append(intBtn);
     }
 });
 
@@ -53,3 +74,10 @@ $("body").on("click", ".intBtn", function () {
         console.log("unselected are: " + unselInts);
     }
 });
+
+// clears local storage and saves interests to local storage on save button click
+$("#saveBtn").on("click", function () {
+    localStorage.clear();
+    localStorage.setItem("selInts", JSON.stringify(selInts));
+    localStorage.setItem("unselInts", JSON.stringify(unselInts));
+})
