@@ -84,6 +84,7 @@ $("#saveBtn").on("click", function () {
     localStorage.clear();
     localStorage.setItem("selInts", JSON.stringify(selInts));
     localStorage.setItem("unselInts", JSON.stringify(unselInts));
+    localStorage.setItem("city", JSON.stringify($("#cityInput").val())); 
     console.log(localStorage.getItem("selInts"));
     console.log(localStorage.getItem("unselInts"));
 })
