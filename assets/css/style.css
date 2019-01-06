@@ -3,3 +3,19 @@
     background-size: cover;
 }
 
+.buttons{
+    padding-top: 3px;
+}
+
+#logo{
+    margin: auto;
+}
+
+p{
+    padding:5px;
+}
+
+.button{
+    background-color: #6FB9F2;
+    font: white;
+}
