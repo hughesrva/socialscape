@@ -12,12 +12,12 @@ $(document).ready(function () {
     }
     else {
         unselInts = JSON.parse(localStorage.getItem("unselInts"));
+        console.log(typeof (unselInts));
     };
 
     if (localStorage.getItem("selInts") !== null) {
         selInts = JSON.parse(localStorage.getItem("selInts"));
     }
-    console.log(unselInts);
 
     // create buttons for unselected interests array items
     for (i = 0; i < unselInts.length; i++) {
@@ -39,14 +39,18 @@ $(document).ready(function () {
 
 // on click function for interest input submit button
 $("#submitBtn").on("click", function () {
-    var inputValue = $("#intInput").val();
-    var newBtn = $("<button>").text(inputValue);
-    selInts.push(inputValue);
-    $(newBtn).addClass("intBtn");
-    $(newBtn).data("value", inputValue);
-    $(newBtn).data("state", "sel");
-    $("#selInterests").append(newBtn);
-    $("#intInput").val("");
+    var inputValue = $("#intInput").val().trim();
+    if (inputValue === "") {
+    }
+    else {
+        var newBtn = $("<button>").text(inputValue);
+        selInts.push(inputValue);
+        $(newBtn).addClass("intBtn");
+        $(newBtn).data("value", inputValue);
+        $(newBtn).data("state", "sel");
+        $("#selInterests").append(newBtn);
+        $("#intInput").val("");
+    }
 });
 
 // on click functions for interest buttons
@@ -80,4 +84,7 @@ $("#saveBtn").on("click", function () {
     localStorage.clear();
     localStorage.setItem("selInts", JSON.stringify(selInts));
     localStorage.setItem("unselInts", JSON.stringify(unselInts));
+    localStorage.setItem("city", JSON.stringify($("#cityInput").val())); 
+    console.log(localStorage.getItem("selInts"));
+    console.log(localStorage.getItem("unselInts"));
 })
