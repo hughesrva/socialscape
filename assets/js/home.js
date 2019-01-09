@@ -1,6 +1,6 @@
 $("body").on("click", ".testButton", function () {
     console.log("clicked");
-
+    console.log(moment());
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
         var city = "Richmond, VA";
@@ -9,14 +9,21 @@ $("body").on("click", ".testButton", function () {
         var city = localStorage.getItem("city");
     }
     console.log(city);
+    
+    // converts user's chosen day of the week to a format the Eventful API can use
+   formatDate = function(weekday){
+    // output will be date as string in format YYYYMMDD00
+
+   }
 
     // eventful URL
     eventful = {
         api_key: "app_key=V8VVQZh9Ghmf7bGQ",
         end: "http://api.eventful.com/json/events/search?",
         city: city,
+        date: "Future",
         queryURL: function (search) {
-            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=Future";
+            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date="+this.date;
             return url;
         },
     };
