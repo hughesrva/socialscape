@@ -26,7 +26,8 @@ formatDate = function (weekday) {
         return rangeDate;
     };
 }
-var weekday = "Wednesday";
+// weekday variable, defaults to "today"
+var weekday = "today";
 var map;
 
 function initMap() {
@@ -65,7 +66,7 @@ $("body").on("click", ".testButton", function () {
         },
     };
     $.ajax({
-        url: eventful.queryURL("art"),
+        url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
