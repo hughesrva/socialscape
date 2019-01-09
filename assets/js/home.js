@@ -4,19 +4,29 @@ formatDate = function (weekday) {
     // if user wants to see today, "today" is a valid format for eventful, so is just returned
     if (weekday.toLowerCase() === "today") {
         return "today";
+    } else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
+        // if today is Tuesday, we want next Tuesday, not today. So this step adds 7 days if today's weekday is entered
+        day = moment(weekday, "dddd").add(7, "days")
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        return rangeDate;
     } else {
-    // moment() version of "next weekday"
-       day = moment(weekday, "dddd");
-    // weekday switched to YYYYMMDD format
-       date = day.format("YYYYMMDD");
-    // add the extra 00 required by eventful API
-       formatDate = date + "00";
-    // converts to a range (of one day, so not really much of a range)
-       rangeDate = formatDate + "-" + formatDate;
-       return rangeDate;
+        // moment() version of "next weekday"
+        day = moment(weekday, "dddd");
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        return rangeDate;
     };
 }
-var weekday = "Today";
+var weekday = "Wednesday";
 var map;
 
 function initMap() {
@@ -55,7 +65,7 @@ $("body").on("click", ".testButton", function () {
         },
     };
     $.ajax({
-        url: eventful.queryURL(localStorage.getItem("selInts").toString()),
+        url: eventful.queryURL("art"),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
