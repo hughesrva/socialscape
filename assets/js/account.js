@@ -5,7 +5,20 @@ var btnValue = "";
 var btnState = "";
 
 $(document).ready(function () {
-    console.log(unselInts);
+
+    // checks to see if interests are already stored locally and adds defaults if not
+    if (localStorage.getItem("unselInts") === null) {
+        unselInts = ["Live Music", "Hiking", "Opera", "Theater", "Movies", "Art Shows"];
+    }
+    else {
+        unselInts = JSON.parse(localStorage.getItem("unselInts"));
+        console.log(typeof (unselInts));
+    };
+
+    if (localStorage.getItem("selInts") !== null) {
+        selInts = JSON.parse(localStorage.getItem("selInts"));
+    }
+
     // create buttons for unselected interests array items
     for (i = 0; i < unselInts.length; i++) {
         var intBtn = $("<button>").text(unselInts[i]);
@@ -14,18 +27,30 @@ $(document).ready(function () {
         $(intBtn).data("state", "unsel");
         $("#unselInterests").append(intBtn);
     }
+
+    for (i = 0; i < selInts.length; i++) {
+        var intBtn = $("<button>").text(selInts[i]);
+        $(intBtn).addClass("intBtn");
+        $(intBtn).data("value", selInts[i]);
+        $(intBtn).data("state", "sel");
+        $("#selInterests").append(intBtn);
+    }
 });
 
 // on click function for interest input submit button
 $("#submitBtn").on("click", function () {
-    var inputValue = $("#intInput").val();
-    var newBtn = $("<button>").text(inputValue);
-    selInts.push(inputValue);
-    $(newBtn).addClass("intBtn");
-    $(newBtn).data("value", inputValue);
-    $(newBtn).data("state", "sel");
-    $("#selInterests").append(newBtn);
-    $("#intInput").val("");
+    var inputValue = $("#intInput").val().trim();
+    if (inputValue === "") {
+    }
+    else {
+        var newBtn = $("<button>").text(inputValue);
+        selInts.push(inputValue);
+        $(newBtn).addClass("intBtn");
+        $(newBtn).data("value", inputValue);
+        $(newBtn).data("state", "sel");
+        $("#selInterests").append(newBtn);
+        $("#intInput").val("");
+    }
 });
 
 // on click functions for interest buttons
@@ -53,3 +78,13 @@ $("body").on("click", ".intBtn", function () {
         console.log("unselected are: " + unselInts);
     }
 });
+
+// clears local storage and saves interests to local storage on save button click
+$("#saveBtn").on("click", function () {
+    localStorage.clear();
+    localStorage.setItem("selInts", JSON.stringify(selInts));
+    localStorage.setItem("unselInts", JSON.stringify(unselInts));
+    localStorage.setItem("city", JSON.stringify($("#cityInput").val())); 
+    console.log(localStorage.getItem("selInts"));
+    console.log(localStorage.getItem("unselInts"));
+})
