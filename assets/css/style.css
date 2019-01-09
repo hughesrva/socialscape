@@ -15,6 +15,12 @@ p{
     padding:5px;
 }
 
+#map{
+    height: 400px;
+    width: 400px;
+    background-color: grey;
+}
+
 .button{
     background-color: #6FB9F2;
     font: white;

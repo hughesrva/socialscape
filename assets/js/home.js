@@ -7,6 +7,16 @@ formatDate = function (weekday) {
         return date;
     };
 }
+var map;
+
+function initMap() {
+    var uluru = { lat: 37.5407, lng: -77.4360 };
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: uluru,
+        zoom: 11
+    });
+};
+
 
 $("body").on("click", ".testButton", function () {
     console.log("clicked");
@@ -18,7 +28,6 @@ $("body").on("click", ".testButton", function () {
     else {
         var city = localStorage.getItem("city");
     }
-    console.log(city);
 
     // eventful URL
     eventful = {
@@ -37,7 +46,6 @@ $("body").on("click", ".testButton", function () {
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
-        console.log(response);
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
@@ -57,7 +65,11 @@ $("body").on("click", ".testButton", function () {
             var eventVenue = $("<div>").addClass("content").text(eventResult.venue_name).attr("id", "eventVenue").appendTo(eventContent); //event venue
             var eventTime = $("<div>").addClass("content").text(eventResult.start_time).attr("id", "eventTime").appendTo(eventContent); //event time
             $("#resultsContainer").prepend(eventCard);
-
+            var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
+            var marker = new google.maps.Marker({
+                position: eventPosition,
+                map: map
+            });
         };
     });
 });
