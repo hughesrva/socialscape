@@ -1,6 +1,9 @@
+// map variables
 var map;
 var geocoder;
 var markers = [];
+// variable for formatDate, defaults to today
+var weekday = "Today";
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
@@ -16,28 +19,79 @@ function initMap() {
     })
 };
 
-$("body").on("click", ".testButton", function () {
-    console.log("clicked");
+// converts user's chosen day of the week to a format the Eventful API can use
+// output will be date as string in format YYYYMMDD00-YYYYMMDD00
+setDate = function (weekday) {
+    // some user inputs are already valid so they are returned as is
+    if (weekday.toLowerCase() === "today") {
+        return "Today";
+    } else if (weekday.toLowerCase() === "this week") {
+        return "This week"
+    } else if (weekday.toLowerCase() === "next week") {
+        return "Next week"
+    }
+    // for if today's weekday is entered
+    else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
+        // sets to *next* weekday
+        day = moment(weekday, "dddd").add(7, "days")
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        return rangeDate;
+    } else {
+        // if today is after the day of the week requested
+        if (moment().day() > moment(weekday, "dddd").day()) {
+            // sets to *next* weekday
+            day = moment(weekday, "dddd").add(7, "days")
+            // weekday switched to YYYYMMDD format
+            date = day.format("YYYYMMDD");
+            // add the extra 00 required by eventful API
+            formatDate = date + "00";
+            // converts to a range (of one day, so not really much of a range)
+            rangeDate = formatDate + "-" + formatDate;
+            return rangeDate;
+        }
+        // if today is before the day of the week requested
+        else if (moment().day() < moment(weekday, "dddd").day()) {
+            // moment.js version of weekday
+            day = moment(weekday, "dddd")
+            // weekday switched to YYYYMMDD format
+            date = day.format("YYYYMMDD");
+            // add the extra 00 required by eventful API
+            formatDate = date + "00";
+            // converts to a range (of one day, so not really much of a range)
+            rangeDate = formatDate + "-" + formatDate;
+            return rangeDate;
+        }
+    };
+};
 
+setCity = function () {
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
         var city = "Richmond, VA";
+        return city;
     }
     else {
         var city = localStorage.getItem("city");
+        return city;
     }
-
-    // eventful URL
-    eventful = {
-        api_key: "app_key=V8VVQZh9Ghmf7bGQ",
-        end: "http://api.eventful.com/json/events/search?",
-        city: city,
-        queryURL: function (search) {
-            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=Future";
-            return url;
-        },
-    };
-
+};
+// eventful URL
+eventful = {
+    api_key: "app_key=V8VVQZh9Ghmf7bGQ",
+    end: "http://api.eventful.com/json/events/search?",
+    city: setCity(),
+    date: setDate(weekday),
+    queryURL: function (search) {
+        url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
+        return url;
+    },
+};
+$("body").on("click", ".testButton", function () {
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
@@ -51,13 +105,9 @@ $("body").on("click", ".testButton", function () {
             markers = [];
         };
         clearMarkers();
-
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
-            // console logs each value from response
-            // console.log("title "+event.title, "start "+event.start_time, "end "+event.stop_time, "venue "+event.venue_name, "address "+event.venue_address, "url "+event.url);
-
             // creates elements for response data and pushes to page
             var eventCard = $("<div>").addClass("card");
             var eventContent = $("<div>").addClass("card-content").appendTo(eventCard);
@@ -103,7 +153,7 @@ $("body").on("click", ".testButton", function () {
             //     infowindow.open(map, marker);
             // });
 
-            google.maps.event.addListener(marker, 'click', (function (marker, contentString , infowindow) {
+            google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
                 return function () {
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
