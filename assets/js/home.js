@@ -1,3 +1,38 @@
+// converts user's chosen day of the week to a format the Eventful API can use
+// output will be date as string in format YYYYMMDD00-YYYYMMDD00
+formatDate = function (weekday) {
+    // some user inputs are already valid so they are returned as is
+    if (weekday.toLowerCase() === "today") {
+        return "Today";
+    } else if (weekday.toLowerCase() === "this week") {
+        return "This week"
+    } else if (weekday.toLowerCase() === "next week"){
+        return "Next week"
+    }
+    else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
+        // if today is Tuesday, we want next Tuesday, not today. So this step adds 7 days if today's weekday is entered
+        day = moment(weekday, "dddd").add(7, "days")
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        return rangeDate;
+    } else {
+        // moment() version of "next weekday"
+        day = moment(weekday, "dddd");
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        return rangeDate;
+    };
+}
+// weekday variable, defaults to "today"
+var weekday = "today";
 var map;
 
 function initMap() {
@@ -11,31 +46,36 @@ function initMap() {
 
 $("body").on("click", ".testButton", function () {
     console.log("clicked");
-
+    // console.log(formatDate("wednesday"));
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
-        var city = "Richmond, VA";
+        var city = "Richmond,VA";
     }
     else {
         var city = localStorage.getItem("city");
     }
 
-    // eventful URL
+    // eventful URL object
     eventful = {
         api_key: "app_key=V8VVQZh9Ghmf7bGQ",
+        // end point for search url
         end: "http://api.eventful.com/json/events/search?",
+        // change value to switch to different city
         city: city,
+        // function converts "weekday" variable into format eventful can read
+        date: formatDate(weekday),
+        // function concatenates all above values into ajax url
         queryURL: function (search) {
-            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=Future";
+            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
             return url;
         },
     };
-
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
+        console.log(eventful.queryURL("music"), response);
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
