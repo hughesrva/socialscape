@@ -81,21 +81,17 @@ $("body").on("click", ".testButton", function () {
             '</div>' +
                 '</div>';
 
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
             var marker = new google.maps.Marker({
                 position: eventPosition,
                 title: eventResult.title
             });
 
-            // Removes the markers from the map, but keeps them in the array.
-
-
             markers.push(marker);
 
-            // Sets the map on all markers in the array.
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
             function addMarkers() {
                 for (var i = 0; i < markers.length; i++) {
                     markers[i].setMap(map);
@@ -103,10 +99,16 @@ $("body").on("click", ".testButton", function () {
             }
             addMarkers();
 
-            marker.addListener('click', function () {
-                infowindow.open(map, marker);
-            });
+            // marker.addListener('click', function () {
+            //     infowindow.open(map, marker);
+            // });
 
+            google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
+                return function () {
+                    infowindow.setContent(contentString);
+                    infowindow.open(map, marker);
+                };
+            })(marker, contentString, infowindow));
         };
     });
 });
