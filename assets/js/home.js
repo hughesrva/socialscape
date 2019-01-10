@@ -1,3 +1,6 @@
+// weekday variable, defaults to "today"
+var weekday = "today";
+var map;
 // converts user's chosen day of the week to a format the Eventful API can use
 // output will be date as string in format YYYYMMDD00-YYYYMMDD00
 formatDate = function (weekday) {
@@ -6,7 +9,7 @@ formatDate = function (weekday) {
         return "Today";
     } else if (weekday.toLowerCase() === "this week") {
         return "This week"
-    } else if (weekday.toLowerCase() === "next week"){
+    } else if (weekday.toLowerCase() === "next week") {
         return "Next week"
     }
     else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
@@ -18,6 +21,7 @@ formatDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
+        console.log(rangeDate);
         return rangeDate;
     } else {
         // moment() version of "next weekday"
@@ -28,12 +32,21 @@ formatDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
+        console.log(rangeDate);
         return rangeDate;
     };
-}
-// weekday variable, defaults to "today"
-var weekday = "today";
-var map;
+};
+// sets city to Richmond if one isn't saved in storage
+setCity = function () {
+    if (localStorage.getItem("city") === null) {
+        let city = "Richmond,VA";
+        return city;
+    }
+    else {
+        let city = localStorage.getItem("city");
+        return city;
+    }
+};
 
 function initMap() {
     var uluru = { lat: 37.5407, lng: -77.4360 };
@@ -43,33 +56,23 @@ function initMap() {
     });
 };
 
+// eventful URL object
+eventful = {
+    api_key: "app_key=V8VVQZh9Ghmf7bGQ",
+    // end point for search url
+    end: "http://api.eventful.com/json/events/search?",
+    // change value to switch to different city
+    city: setCity(),
+    // function converts "weekday" variable into format eventful can read
+    date: formatDate(weekday),
+    // function concatenates all above values into ajax url
+    queryURL: function (search) {
+        url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
+        return url;
+    },
+};
 
 $("body").on("click", ".testButton", function () {
-    console.log("clicked");
-    // console.log(formatDate("wednesday"));
-    // sets city to Richmond if one isn't saved in storage
-    if (localStorage.getItem("city") === null) {
-        var city = "Richmond,VA";
-    }
-    else {
-        var city = localStorage.getItem("city");
-    }
-
-    // eventful URL object
-    eventful = {
-        api_key: "app_key=V8VVQZh9Ghmf7bGQ",
-        // end point for search url
-        end: "http://api.eventful.com/json/events/search?",
-        // change value to switch to different city
-        city: city,
-        // function converts "weekday" variable into format eventful can read
-        date: formatDate(weekday),
-        // function concatenates all above values into ajax url
-        queryURL: function (search) {
-            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
-            return url;
-        },
-    };
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
