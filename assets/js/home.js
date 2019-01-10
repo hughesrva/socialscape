@@ -3,7 +3,7 @@ var map;
 var geocoder;
 var markers = [];
 // variable for formatDate, defaults to today
-var weekday = "today";
+var weekday = "Wednesday";
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
@@ -21,7 +21,7 @@ function initMap() {
 
 // converts user's chosen day of the week to a format the Eventful API can use
 // output will be date as string in format YYYYMMDD00-YYYYMMDD00
-formatDate = function (weekday) {
+setDate = function (weekday) {
     // some user inputs are already valid so they are returned as is
     if (weekday.toLowerCase() === "today") {
         return "Today";
@@ -30,8 +30,9 @@ formatDate = function (weekday) {
     } else if (weekday.toLowerCase() === "next week") {
         return "Next week"
     }
+    // for if today's weekday is entered
     else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
-        // if today is Tuesday, we want next Tuesday, not today. So this step adds 7 days if today's weekday is entered
+        // sets to *next* weekday
         day = moment(weekday, "dddd").add(7, "days")
         // weekday switched to YYYYMMDD format
         date = day.format("YYYYMMDD");
@@ -39,17 +40,37 @@ formatDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
+        console.log(rangeDate);
         return rangeDate;
     } else {
-        // moment() version of "next weekday"
-        day = moment(weekday, "dddd");
-        // weekday switched to YYYYMMDD format
-        date = day.format("YYYYMMDD");
-        // add the extra 00 required by eventful API
-        formatDate = date + "00";
-        // converts to a range (of one day, so not really much of a range)
-        rangeDate = formatDate + "-" + formatDate;
-        return rangeDate;
+        // if today is after the day of the week requested
+        if (moment().day() > moment(weekday, "dddd").day()) {
+            console.log(moment().day() > moment(weekday, "dddd").day());
+            // sets to *next* weekday
+            day = moment(weekday, "dddd").add(7, "days")
+            // weekday switched to YYYYMMDD format
+            date = day.format("YYYYMMDD");
+            // add the extra 00 required by eventful API
+            formatDate = date + "00";
+            // converts to a range (of one day, so not really much of a range)
+            rangeDate = formatDate + "-" + formatDate;
+            console.log(rangeDate);
+            return rangeDate;
+        }
+        // if today is before the day of the week requested
+        else if (moment().day() < moment(weekday, "dddd").day()) {
+            console.log(moment().day(), moment(weekday, "dddd").day());
+            // moment.js version of weekday
+            day = moment(weekday, "dddd")
+            // weekday switched to YYYYMMDD format
+            date = day.format("YYYYMMDD");
+            // add the extra 00 required by eventful API
+            formatDate = date + "00";
+            // converts to a range (of one day, so not really much of a range)
+            rangeDate = formatDate + "-" + formatDate;
+            console.log(rangeDate);
+            return rangeDate;
+        }
     };
 };
 
@@ -69,7 +90,7 @@ eventful = {
     api_key: "app_key=V8VVQZh9Ghmf7bGQ",
     end: "http://api.eventful.com/json/events/search?",
     city: setCity(),
-    date: formatDate(weekday),
+    date: setDate(weekday),
     queryURL: function (search) {
         url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
         return url;
@@ -88,7 +109,7 @@ $("body").on("click", ".testButton", function () {
             }
             markers = [];
         };
-        console.log(response);
+        console.log(eventful.queryURL(localStorage.getItem("selInts").toString()), response);
         clearMarkers();
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
