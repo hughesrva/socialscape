@@ -3,7 +3,7 @@ var map;
 var geocoder;
 var markers = [];
 // variable for formatDate, defaults to today
-var weekday = "Wednesday";
+var weekday = "Today";
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
