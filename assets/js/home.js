@@ -40,12 +40,10 @@ setDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
-        console.log(rangeDate);
         return rangeDate;
     } else {
         // if today is after the day of the week requested
         if (moment().day() > moment(weekday, "dddd").day()) {
-            console.log(moment().day() > moment(weekday, "dddd").day());
             // sets to *next* weekday
             day = moment(weekday, "dddd").add(7, "days")
             // weekday switched to YYYYMMDD format
@@ -54,12 +52,10 @@ setDate = function (weekday) {
             formatDate = date + "00";
             // converts to a range (of one day, so not really much of a range)
             rangeDate = formatDate + "-" + formatDate;
-            console.log(rangeDate);
             return rangeDate;
         }
         // if today is before the day of the week requested
         else if (moment().day() < moment(weekday, "dddd").day()) {
-            console.log(moment().day(), moment(weekday, "dddd").day());
             // moment.js version of weekday
             day = moment(weekday, "dddd")
             // weekday switched to YYYYMMDD format
@@ -68,7 +64,6 @@ setDate = function (weekday) {
             formatDate = date + "00";
             // converts to a range (of one day, so not really much of a range)
             rangeDate = formatDate + "-" + formatDate;
-            console.log(rangeDate);
             return rangeDate;
         }
     };
@@ -109,14 +104,10 @@ $("body").on("click", ".testButton", function () {
             }
             markers = [];
         };
-        console.log(eventful.queryURL(localStorage.getItem("selInts").toString()), response);
         clearMarkers();
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
-            // console logs each value from response
-            // console.log("title "+event.title, "start "+event.start_time, "end "+event.stop_time, "venue "+event.venue_name, "address "+event.venue_address, "url "+event.url);
-
             // creates elements for response data and pushes to page
             var eventCard = $("<div>").addClass("card");
             var eventContent = $("<div>").addClass("card-content").appendTo(eventCard);
