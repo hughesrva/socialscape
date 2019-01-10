@@ -16,6 +16,42 @@ function initMap() {
     })
 };
 
+// converts user's chosen day of the week to a format the Eventful API can use
+// output will be date as string in format YYYYMMDD00-YYYYMMDD00
+formatDate = function (weekday) {
+    // some user inputs are already valid so they are returned as is
+    if (weekday.toLowerCase() === "today") {
+        return "Today";
+    } else if (weekday.toLowerCase() === "this week") {
+        return "This week"
+    } else if (weekday.toLowerCase() === "next week") {
+        return "Next week"
+    }
+    else if (moment().format("dddd") === moment(weekday, "dddd").format("dddd")) {
+        // if today is Tuesday, we want next Tuesday, not today. So this step adds 7 days if today's weekday is entered
+        day = moment(weekday, "dddd").add(7, "days")
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        console.log(rangeDate);
+        return rangeDate;
+    } else {
+        // moment() version of "next weekday"
+        day = moment(weekday, "dddd");
+        // weekday switched to YYYYMMDD format
+        date = day.format("YYYYMMDD");
+        // add the extra 00 required by eventful API
+        formatDate = date + "00";
+        // converts to a range (of one day, so not really much of a range)
+        rangeDate = formatDate + "-" + formatDate;
+        console.log(rangeDate);
+        return rangeDate;
+    };
+};
+
 $("body").on("click", ".testButton", function () {
     console.log("clicked");
 
@@ -51,7 +87,6 @@ $("body").on("click", ".testButton", function () {
             markers = [];
         };
         clearMarkers();
-
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
