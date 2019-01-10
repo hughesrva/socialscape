@@ -1,6 +1,9 @@
+// map variables
 var map;
 var geocoder;
 var markers = [];
+// variable for formatDate, defaults to today
+var weekday = "today";
 
 function initMap() {
     geocoder = new google.maps.Geocoder();
@@ -36,7 +39,6 @@ formatDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
-        console.log(rangeDate);
         return rangeDate;
     } else {
         // moment() version of "next weekday"
@@ -47,33 +49,33 @@ formatDate = function (weekday) {
         formatDate = date + "00";
         // converts to a range (of one day, so not really much of a range)
         rangeDate = formatDate + "-" + formatDate;
-        console.log(rangeDate);
         return rangeDate;
     };
 };
 
-$("body").on("click", ".testButton", function () {
-    console.log("clicked");
-
+setCity = function () {
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
         var city = "Richmond, VA";
+        return city;
     }
     else {
         var city = localStorage.getItem("city");
+        return city;
     }
-
-    // eventful URL
-    eventful = {
-        api_key: "app_key=V8VVQZh9Ghmf7bGQ",
-        end: "http://api.eventful.com/json/events/search?",
-        city: city,
-        queryURL: function (search) {
-            url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=Future";
-            return url;
-        },
-    };
-
+};
+// eventful URL
+eventful = {
+    api_key: "app_key=V8VVQZh9Ghmf7bGQ",
+    end: "http://api.eventful.com/json/events/search?",
+    city: setCity(),
+    date: formatDate(weekday),
+    queryURL: function (search) {
+        url = this.end + this.api_key + "&category=" + search + "&location=" + this.city + "&date=" + this.date;
+        return url;
+    },
+};
+$("body").on("click", ".testButton", function () {
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
@@ -86,6 +88,7 @@ $("body").on("click", ".testButton", function () {
             }
             markers = [];
         };
+        console.log(response);
         clearMarkers();
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
@@ -138,7 +141,7 @@ $("body").on("click", ".testButton", function () {
             //     infowindow.open(map, marker);
             // });
 
-            google.maps.event.addListener(marker, 'click', (function (marker, contentString , infowindow) {
+            google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
                 return function () {
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
