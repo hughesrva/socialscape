@@ -18,7 +18,7 @@
         <!-- brand item -->
         <div class="navbar-brand">
             <a class="navbar-item" href="https://hughesrva.github.io/funkey-project">
-                <img src="assets/images/logo.png" style="max-width: 260px;">
+                <img src="assets/images/logo.png" style="min-height: 100px;">
             </a>
 
             <!-- hamburger menu -->
@@ -31,10 +31,10 @@
 
         <div id="navMenu" class="navbar-menu">
             <div class="navbar-end">
-                <div class="navbar-item">
+                <div class="navbar-item"> 
                     <div class="buttons">
-                        <a class="button is-primary">
-                            My Preferences
+                        <a class="button is-link" href="account.html">
+                            Search Preferences
                         </a>
                     </div>
 
@@ -43,20 +43,33 @@
             </div>
         </div>
     </nav>
-    <section class="section">
-        <div class="button testButton">test</div>
+    <!-- Empty Columns to make padding-->
+    <div class="column"></div>
+    <div class="column"></div>
+    <div class="column"></div>
+    <div class="column"></div>
+            <div class="columns has-same-height is-vcentered">
+                <div class="column is-half">
+                    <a class="button is-link is-medium is-fullwidth">A Day at the Park</a>
+                    <a class="button is-link is-medium is-fullwidth">Guy Fieri Cooking Demo</a>
+                    <a class="button is-link is-medium is-fullwidth">Talk Like a Doge Meme Day</a>
+                    <a class="button is-link is-medium is-fullwidth">Picnic</a>
+                    <a class="button is-link is-medium is-fullwidth">Talk Like A Pirate Day</a>
+                    <a class="button is-link is-medium is-fullwidth">Clubbing 101</a>
+   
+                 </div>
+    
 
+        
+                    <!-- Google Maparooni-->
+                    <div class="column">
+                    <div id="map">
 
-        <!-- interest icon choices -->
-        <i class="fas fa-music"></i>
-
-        <!-- Google Maparooni-->
-        <div id="map">
-
-        </div>
+                </div>
         <div class="container" id="resultsContainer">
         </div>
-    </section>
+        </div>
+    </div>
 
 
 
@@ -70,7 +83,7 @@
 <footer class="footer">
     <div class="content has-text-centered">
         <p>
-            <strong>SocialScape</strong> by Ian, Jacob, Pat and Janna.
+            <strong>SocialScape</strong> by Ian, Jacob, Pat and Janna. &copy; Copyright 2019
         </p>
     </div>
 </footer>
