@@ -1,13 +1,20 @@
 var map;
+var geocoder;
+var markers = [];
 
 function initMap() {
-    var uluru = { lat: 37.5407, lng: -77.4360 };
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: uluru,
-        zoom: 11
-    });
+    geocoder = new google.maps.Geocoder();
+    var address = localStorage.getItem("city");
+    geocoder.geocode({ address: address }, function (results, status) {
+        if (status == "OK") {
+            var mapOptions = {
+                zoom: 10,
+                center: results[0].geometry.location
+            }
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        }
+    })
 };
-
 
 $("body").on("click", ".testButton", function () {
     console.log("clicked");
@@ -36,6 +43,15 @@ $("body").on("click", ".testButton", function () {
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
+
+        function clearMarkers() {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(null);
+            }
+            markers = [];
+        };
+        clearMarkers();
+
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
@@ -56,10 +72,41 @@ $("body").on("click", ".testButton", function () {
             var eventTime = $("<div>").addClass("content").text(eventResult.start_time).attr("id", "eventTime").appendTo(eventContent); //event time
             $("#resultsContainer").prepend(eventCard);
             var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
+            var contentString = '<div id="content">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">' + eventResult.title + "</h1>'" +
+                '<div id="bodyContent">' +
+                '<p><b>' + eventResult.venue_name + ' - ' + eventResult.start_time + '</b></p>'
+            '</div>' +
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
             var marker = new google.maps.Marker({
                 position: eventPosition,
-                map: map
+                title: eventResult.title
             });
+
+            // Removes the markers from the map, but keeps them in the array.
+
+
+            markers.push(marker);
+
+            // Sets the map on all markers in the array.
+            function addMarkers() {
+                for (var i = 0; i < markers.length; i++) {
+                    markers[i].setMap(map);
+                }
+            }
+            addMarkers();
+
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
+            });
+
         };
     });
 });
