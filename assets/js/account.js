@@ -5,7 +5,6 @@ var btnValue = "";
 var btnState = "";
 
 $(document).ready(function () {
-
     // checks to see if interests are already stored locally and adds defaults if not
     if (localStorage.getItem("unselInts") === null) {
         unselInts = ["Live Music", "Hiking", "Opera", "Theater", "Movies", "Art Shows"];
