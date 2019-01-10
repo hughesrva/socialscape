@@ -103,7 +103,7 @@ $("body").on("click", ".testButton", function () {
             //     infowindow.open(map, marker);
             // });
 
-            google.maps.event.addListener(marker, 'click', (function (marker, contentString, infowindow) {
+            google.maps.event.addListener(marker, 'click', (function (marker, contentString , infowindow) {
                 return function () {
                     infowindow.setContent(contentString);
                     infowindow.open(map, marker);
