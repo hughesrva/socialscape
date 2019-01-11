@@ -5,7 +5,7 @@ var markers = [];
 // variable for formatDate, defaults to today
 var weekday = "Today";
 
-function initMap() {
+var initMap = function () {
     geocoder = new google.maps.Geocoder();
     var address = localStorage.getItem("city");
     geocoder.geocode({ address: address }, function (results, status) {
@@ -17,11 +17,16 @@ function initMap() {
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
         }
     })
-};
+}
+
+$(document).on("ready", function () {
+    setCity();
+    initMap();
+});
 
 // converts user's chosen day of the week to a format the Eventful API can use
 // output will be date as string in format YYYYMMDD00-YYYYMMDD00
-setDate = function (weekday) {
+var setDate = function (weekday) {
     // some user inputs are already valid so they are returned as is
     if (weekday.toLowerCase() === "today") {
         return "Today";
@@ -69,10 +74,11 @@ setDate = function (weekday) {
     };
 };
 
-setCity = function () {
+var setCity = function () {
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
-        var city = "Richmond, VA";
+        var city = "Richmond, VA"
+        localStorage.setItem("city", city);
         return city;
     }
     else {
