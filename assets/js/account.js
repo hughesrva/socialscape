@@ -5,7 +5,6 @@ var btnValue = "";
 var btnState = "";
 
 $(document).ready(function () {
-
     // checks to see if interests are already stored locally and adds defaults if not
     if (localStorage.getItem("unselInts") === null) {
         unselInts = ["Live Music", "Hiking", "Opera", "Theater", "Movies", "Art Shows"];
@@ -40,8 +39,7 @@ $(document).ready(function () {
 // on click function for interest input submit button
 $("#submitBtn").on("click", function () {
     var inputValue = $("#intInput").val().trim();
-    if (inputValue === "") {
-    }
+    if (inputValue === "" || parseInt(inputValue)) {}
     else {
         var newBtn = $("<button>").text(inputValue);
         selInts.push(inputValue);
@@ -81,10 +79,13 @@ $("body").on("click", ".intBtn", function () {
 
 // clears local storage and saves interests to local storage on save button click
 $("#saveBtn").on("click", function () {
-    localStorage.clear();
-    localStorage.setItem("selInts", JSON.stringify(selInts));
-    localStorage.setItem("unselInts", JSON.stringify(unselInts));
-    localStorage.setItem("city", JSON.stringify($("#cityInput").val())); 
-    console.log(localStorage.getItem("selInts"));
-    console.log(localStorage.getItem("unselInts"));
+    if ($("#cityInput").val() === "" || parseint($("#cityInput").val())) {}
+    else {
+        localStorage.clear();
+        localStorage.setItem("selInts", JSON.stringify(selInts));
+        localStorage.setItem("unselInts", JSON.stringify(unselInts));
+        localStorage.setItem("city", JSON.stringify($("#cityInput").val()));
+        console.log(localStorage.getItem("selInts"));
+        console.log(localStorage.getItem("unselInts"));
+    }
 })

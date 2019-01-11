@@ -1,14 +1,3 @@
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyATvEEuE5HWcpeiiYbIB5vPx2FYTQ6alIM",
-    authDomain: "socialscapen.firebaseapp.com",
-    databaseURL: "https://socialscapen.firebaseio.com",
-    projectId: "socialscapen",
-    storageBucket: "socialscapen.appspot.com",
-    messagingSenderId: "360016702089"
-};
-firebase.initializeApp(config);
-
 $(document).ready(function () {
 
     // on-click function for hamburger menu
