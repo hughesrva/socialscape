@@ -2,88 +2,68 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>SocialScapes - Welcome</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SocialScape - Welcome</title>
+    <link rel="shortcut icon" href="../images/fav_icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+    <!-- Bulma Version 0.7.2-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
-
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 
 <body>
-    <!-- navbar -->
-    <nav class="navbar is-fixed-top" role="navigation" aria="main navigation">
-        <!-- brand item -->
-        <div class="navbar-brand">
-            <a class="navbar-center" href="https://hughesrva.github.io/funkey-project">
-                <img src="assets/images/logo.png" id="logo">
-            </a>
-
-            <!-- hamburger menu -->
-            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navMenu" class="navbar-menu">
-            <div class="navbar-end">
-                <div class="navbar-item">
-
+    <section class="hero is-info is-fullheight">
+        <div class="hero-head">
+            <nav class="navbar">
+                <div class="container">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="account.html">
+                            <img src="assets/images/whitelogo.png" alt="Logo" style="min-height: 150px;">
+                        </a>
+                        <span class="navbar-burger burger" data-target="navbarMenu">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
                     </div>
+                    <div id="navbarMenu" class="navbar-menu">
+                        <div class="navbar-end">
+                            <span class="navbar-item">
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            </div>
 
-
+            <div class="hero-body">
+                <div id="splash-text has-text-centered">
+                    <div class="column is-6 is-offset-3">
+                        <h2 class="subtitle has-text-centered">
+                            Tired of wading through social media and event sites looking for something to do? 
+                            Just tell us when you're free, what you're interested in, and we'll bring the events to you. 
+                            No tedious login or account creation required.
+                        </h2>
+                        
+                            <div class="field is-grouped">
+                                
+                                <p class="control">
+                                    <a class="button is-info" href="account.html">
+                                        Get Started
+                                    </a>
+                                </p>
+                            
+                            </div>
+                        
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
 
-
-    <section class="hero is-large has-bg-img">
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    SocialScape
-                </h1>
-                <h2 class="subtitle">
-                    Don't waste time browsing events, 
-                        let us bring tailored top picks to you!
-                </h2>
-            </div>
-        </div>
     </section>
-
-    <section>
-        <level>
-            <div class="buttons is-centered">
-                <a href="https://hughesrva.github.io/funkey-project/account.html" class="button is-large">
-                    <strong>Sign Up</strong>
-                </a>
-            </div>
-            <div>
-                <h3 class="has-text-centered">Tired of wading through social media and event sites looking for somethign to do? 
-                    Just tell us when you're free, what you're interested in, and how far you're willin to travel and we'll 
-                    bring the events to you. No tedious login or account creation required.</h3>
-            </div>
-        </level>
-    </section>
-
-
-
-    <!-- script links -->
-    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
-    <script src="assets/js/app.js"></script>
+    <script async type="text/javascript" src="../js/bulma.js"></script>
 </body>
 
-<footer class="footer">
-    <div class="content has-text-centered">
-      <p>
-        <strong>SocialScape</strong> by Ian, Jacob, Pat and Janna.
-      </p>
-    </div>
-  </footer>
 </html>
