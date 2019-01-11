@@ -96,7 +96,7 @@ var setCity = function () {
 // eventful URL
 eventful = {
     api_key: "app_key=V8VVQZh9Ghmf7bGQ",
-    end: "http://api.eventful.com/json/events/search?",
+    end: "https://api.eventful.com/json/events/search?",
     city: setCity(),
     date: setDate(weekday),
     queryURL: function (search) {
@@ -111,6 +111,7 @@ $("body").on("click", "#runButton", function () {
         method: "GET"
     }).then(function (response) {
 
+        // clears markers from map
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);

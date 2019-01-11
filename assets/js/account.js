@@ -11,7 +11,6 @@ $(document).ready(function () {
     }
     else {
         unselInts = JSON.parse(localStorage.getItem("unselInts"));
-        console.log(typeof (unselInts));
     };
 
     if (localStorage.getItem("selInts") !== null) {
@@ -62,8 +61,6 @@ $("body").on("click", ".intBtn", function () {
         selInts.push(btnValue);
         $(this).detach().appendTo("#selInterests");
         $(this).data("state", "sel");
-        console.log("selected are: " + selInts);
-        console.log("unselected are: " + unselInts);
     }
 
     // moves to unselected and changes state to unselcted if selected
@@ -72,8 +69,6 @@ $("body").on("click", ".intBtn", function () {
         unselInts.push(btnValue);
         $(this).detach().appendTo("#unselInterests");
         $(this).data("state", "unsel");
-        console.log("selected are: " + selInts);
-        console.log("unselected are: " + unselInts);
     }
 });
 
@@ -87,7 +82,5 @@ $("#saveBtn").on("click", function () {
         localStorage.setItem("city", JSON.stringify($("#cityInput").val()));
         localStorage.setItem("day", JSON.stringify($("#dateSelect").val()));
         localStorage.setItem("time", JSON.stringify($("#timeSelect").val()));
-        console.log(localStorage.getItem("selInts"));
-        console.log(localStorage.getItem("unselInts"));
     }
 })
