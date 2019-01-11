@@ -79,12 +79,14 @@ $("body").on("click", ".intBtn", function () {
 
 // clears local storage and saves interests to local storage on save button click
 $("#saveBtn").on("click", function () {
-    if ($("#cityInput").val() === "" || parseint($("#cityInput").val())) {}
+    if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {}
     else {
         localStorage.clear();
         localStorage.setItem("selInts", JSON.stringify(selInts));
         localStorage.setItem("unselInts", JSON.stringify(unselInts));
         localStorage.setItem("city", JSON.stringify($("#cityInput").val()));
+        localStorage.setItem("day", JSON.stringify($("#dateSelect").val()));
+        localStorage.setItem("time", JSON.stringify($("#timeSelect").val()));
         console.log(localStorage.getItem("selInts"));
         console.log(localStorage.getItem("unselInts"));
     }
