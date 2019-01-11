@@ -2,8 +2,8 @@
 var map;
 var geocoder;
 var markers = [];
-// variable for formatDate, defaults to today
-var weekday = "Today";
+var weekday = localStorage.getItem("day");
+var time = localStorage.getItem("time");
 
 var initMap = function () {
     geocoder = new google.maps.Geocoder();
@@ -22,17 +22,23 @@ var initMap = function () {
 $(document).on("ready", function () {
     setCity();
     initMap();
+    setDate();
 });
 
 // converts user's chosen day of the week to a format the Eventful API can use
 // output will be date as string in format YYYYMMDD00-YYYYMMDD00
 var setDate = function (weekday) {
     // some user inputs are already valid so they are returned as is
-    if (weekday.toLowerCase() === "today") {
+    if (weekday === null) {
+        localStorage.setItem("day", "Today");
         return "Today";
-    } else if (weekday.toLowerCase() === "this week") {
+    }
+    else if (weekday == "today") {
+        return "Today";
+    }
+    else if (weekday == "this week") {
         return "This week"
-    } else if (weekday.toLowerCase() === "next week") {
+    } else if (weekday == "next week") {
         return "Next week"
     }
     // for if today's weekday is entered
@@ -74,6 +80,7 @@ var setDate = function (weekday) {
     };
 };
 
+
 var setCity = function () {
     // sets city to Richmond if one isn't saved in storage
     if (localStorage.getItem("city") === null) {
@@ -89,7 +96,7 @@ var setCity = function () {
 // eventful URL
 eventful = {
     api_key: "app_key=V8VVQZh9Ghmf7bGQ",
-    end: "http://api.eventful.com/json/events/search?",
+    end: "https://api.eventful.com/json/events/search?",
     city: setCity(),
     date: setDate(weekday),
     queryURL: function (search) {
@@ -97,13 +104,14 @@ eventful = {
         return url;
     },
 };
-$("body").on("click", ".testButton", function () {
+$("body").on("click", "#runButton", function () {
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
 
+        // clears markers from map
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(null);
@@ -126,6 +134,30 @@ $("body").on("click", ".testButton", function () {
             var eventTitle = $("<p>").addClass("title").addClass("is-4").text(eventResult.title).attr("id", "eventTitle").appendTo(eventLink); //event title
             var eventVenue = $("<div>").addClass("content").text(eventResult.venue_name).attr("id", "eventVenue").appendTo(eventContent); //event venue
             var eventTime = $("<div>").addClass("content").text(eventResult.start_time).attr("id", "eventTime").appendTo(eventContent); //event time
+            var eventTimeSlice = (eventResult.start_time).slice(11);
+            if (time === null) {
+                localStorage.setItem("time", "Both");
+                $(eventCard).addClass("goodTime");
+            }
+            else if (time == "Day") {
+                if (moment(eventTimeSlice, "H:mm:ss") < moment("1700", "HHmm")) {
+                    $(eventCard).addClass("goodTime");
+                }
+                else {
+                    $(eventCard).addClass("badTime")
+                };
+            }
+            else if (time == "Night") {
+                if (moment(eventTimeSlice, "H:mm:ss") >= moment("1700", "HHmm")) {
+                    $(eventCard).addClass("goodTime");
+                }
+                else {
+                    $(eventCard).addClass("badTime")
+                };
+            }
+            else if (time == "Both") {
+                $(eventCard).addClass("goodTime");
+            }
             $("#resultsContainer").prepend(eventCard);
             var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
             var contentString = '<div id="content">' +
