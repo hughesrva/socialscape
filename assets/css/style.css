@@ -21,7 +21,54 @@ p{
     background-color: grey;
 }
 
-.button{
-    background-color: #6FB9F2;
-    font: white;
+.buttons{
+    padding-top: 3px;
+}
+
+#logo{
+    margin: auto;
+}
+
+p{
+    padding:5px;
+}
+
+#map{
+    height: 400px;
+    width: 400px;
+    background-color: grey;
+}
+
+.splash-image {
+    background-image: url("../images/lights.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: #999;
+    background-blend-mode: multiply;
+    opacity: 0.20;
+}
+
+.splash-subtitle {
+    z-index: 500;
+    position: relative;
+    bottom: 550px; 
+
+}
+.button.is-info {
+    background-color: white;
+    color: black;
+}
+
+.hero.is-info .subtitle {
+    font-weight: bold;
+}
+
+.hero.is-info {
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../images/confetti.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
