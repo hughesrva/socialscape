@@ -14,12 +14,12 @@
 <body>
     <section class="section">
     <div class="container">
-    <!--navbar -->
-    <nav class="navbar is-fixed-top" role="navigation" aria="main navigation">
-        
-        <!--brand item--> 
+   <!-- navbar -->
+   <nav class="navbar is-fixed-top" role="navigation" aria="main navigation">
+        <!-- brand item -->
         <div class="navbar-brand">
             <a class="navbar-item" href="https://hughesrva.github.io/funkey-project">
+                <img src="assets/images/logo.png" style="min-height: 100px;">
             </a>
 
             <!--hamburger menu-->
@@ -36,16 +36,12 @@
             <div class="hero-body">
                 <div class="container">
                     <h1 class="title">
-                        SocialScape
+                        Enjoy Life
                     </h1>
-                    <h2 class="subtitle">
-                        Enjoy life
-                    </h2>
                 </div>
             </div>
         </section>
 
-    <br>
     <!--location/time section-->
     <section class="section">
         <div class="container">
@@ -54,7 +50,7 @@
                 <!--location level-->
                 <div class="level-left">
 
-                    <!--zip code input-->
+                    <!--city, state input-->
                    <div class="field">
                         <div class="control is-pulled-left">
 
@@ -89,53 +85,57 @@
                     <span class="select">
                         <select>
                             <option selected>Time of Day</option>
-                            <option>Morning</option>
-                            <option>Afternoon</option>
-                            <option>Evening</option>
+                            <option>Day (before 5)</option>
+                            <option>Night (after 5)</option>
+                            <option>Both</option>
                         </select>
                     </span>
                     <span class="icon is-small is-left"> </span>
                     </p>
                 </div>
-
-                <!--submit button-->
-                <div class="field is-group">
-                    <p class="control">
-                        <a class="button is-info is-light" id="saveBtn">
-
-                        Save
-                        </a>
-                    </p>
-                </div>
                 
-                <!--save button-->  
+                <!--submit button-->  
+                <div class="field has-addons">
+                        <div class="control">
+                          <input class="input" type="text" placeholder="Other Interest">
+                        </div>
+                        <div class="control">
+                          <a class="button is-info">
+                            Submit
+                          </a>
+                        </div>
+                      </div>
+                    <!--save button-->
                 <div class="field is-group">
-                    <p class="control">
-                        <a class="button is-link" id="submitBtn">
-                        Submit
-                        </a>
-                    </p>
-                </div>
-
+                        <p class="control">
+                            <a class="button is-link">
+                            Save
+                            </a>
+                        </p>
+                        </div>
+                </div> 
+            </div>
+            </div>  
+         
                 <!--selected interest-->
-               <section class="section">
-                    <div class="container is-pulled-let">
-                        <h1 class="title">Slected Interests</h1>
+                <section class="section">
+                <div class="container" id="selInterests"> 
+                            <div class="control">
+                            <div class="field">
+                                <label class="label is-small">Selected Interest</label>
+                            </div>
                         </div>
-                    </section>
+                </section>
 
-                <!--common interes-->
-                <!--<section class="section">
-                    <div class="container">
-                        <h1 class="title">Common Interests</h1>
+                <!--common interest-->
+                    <div class="container" id="unselInterests">  
+                        <div class="control"> 
+                        <div class="field">
+                        <label class="label is-small">Common Interest</label>  
                         </div>
-                    </section>-->
-
-                <!--Added Interest-->
-                <!--<div class="field">
-                    <div class="control is-pulled-left">
-                        <input class="input is-info" type="text" placeholder="Interests">
-                    </div -->
+                </section>
+                    </div>
+                
                 
     <!--script links-->
     <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
@@ -145,5 +145,12 @@
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 
 </body>
+<footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>SocialScape</strong> by Ian, Jacob, Pat and Janna. &copy; Copyright 2019
+            </p>
+        </div>
+    </footer>
 
 </html>
