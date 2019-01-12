@@ -24,7 +24,7 @@ $(document).ready(function () {
         $(intBtn).data("value", unselInts[i]);
         $(intBtn).data("state", "unsel");
         $("#unselInterests").append(intBtn);
-        $(".intBtn").addClass("button is-outlined");
+        $(".intBtn").addClass("button is-outlined is-dark");
     }
 
     for (i = 0; i < selInts.length; i++) {
@@ -44,7 +44,7 @@ $("#submitBtn").on("click", function () {
     else {
         var newBtn = $("<button>").text(inputValue);
         selInts.push(inputValue);
-        $(newBtn).addClass("intBtn");
+        $(newBtn).addClass("intBtn button is-dark is-outlined");
         $(newBtn).data("value", inputValue);
         $(newBtn).data("state", "sel");
         $("#selInterests").append(newBtn);
