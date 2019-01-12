@@ -4,7 +4,7 @@ var geocoder;
 var markers = [];
 var weekday = localStorage.getItem("day");
 var time = localStorage.getItem("time");
-
+var currentTime = moment();
 var initMap = function () {
     geocoder = new google.maps.Geocoder();
     var address = localStorage.getItem("city");
@@ -102,12 +102,13 @@ eventful = {
     },
 };
 $("body").on("click", "#runButton", function () {
+    $("#runButton").addClass("is-loading");
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
-
+        $("#runButton").removeClass("is-loading");
         // clears markers from map
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
@@ -159,8 +160,11 @@ $("body").on("click", "#runButton", function () {
             else if (time == "Both") {
                 $(eventCard).addClass("goodTime");
             }
-            // marks "badTime" if event shows up erronously 
-            // else if ()
+            // loop to grey out events from past which snuck in
+            if(moment(startTime, "LLLL").isBefore(currentTime)){
+                $(eventCard).addClass("badTime");
+            };
+            // map stuff
             $("#resultsContainer").prepend(eventCard);
             var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
             var contentString = '<div id="content">' +
