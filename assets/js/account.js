@@ -24,6 +24,7 @@ $(document).ready(function () {
         $(intBtn).data("value", unselInts[i]);
         $(intBtn).data("state", "unsel");
         $("#unselInterests").append(intBtn);
+        $(".intBtn").addClass("button is-outlined");
     }
 
     for (i = 0; i < selInts.length; i++) {
@@ -32,6 +33,7 @@ $(document).ready(function () {
         $(intBtn).data("value", selInts[i]);
         $(intBtn).data("state", "sel");
         $("#selInterests").append(intBtn);
+        $(".intBtn").addClass("button is-dark is-outlined");
     }
 });
 
@@ -70,6 +72,7 @@ $("body").on("click", ".intBtn", function () {
         $(this).detach().appendTo("#unselInterests");
         $(this).data("state", "unsel");
     }
+
 });
 
 // clears local storage and saves interests to local storage on save button click

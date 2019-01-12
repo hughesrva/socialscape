@@ -7,6 +7,10 @@
     padding-top: 3px;
 }
 
+.intBtn{
+    margin: 3px;
+}
+
 #logo{
     margin: auto;
 }
@@ -19,10 +23,6 @@ p{
     height: 400px;
     width: 400px;
     background-color: grey;
-}
-
-.buttons{
-    padding-top: 3px;
 }
 
 #logo{
@@ -56,7 +56,7 @@ p{
     bottom: 550px; 
 
 }
-.button.is-info {
+.button .is-started {
     background-color: white;
     color: black;
 }
