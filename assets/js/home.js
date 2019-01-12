@@ -101,12 +101,13 @@ eventful = {
     },
 };
 $("body").on("click", "#runButton", function () {
+    $("#runButton").addClass("is-loading");
     $.ajax({
         url: eventful.queryURL(localStorage.getItem("selInts").toString()),
         dataType: "jsonp",
         method: "GET"
     }).then(function (response) {
-
+        $("#runButton").removeClass("is-loading");
         // clears markers from map
         function clearMarkers() {
             for (var i = 0; i < markers.length; i++) {
