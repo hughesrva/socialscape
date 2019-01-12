@@ -122,6 +122,8 @@ $("body").on("click", "#runButton", function () {
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
+            // convert start time from military time with seconds
+            let startTime = moment(eventResult.start_time, "YYYY-MM-DD HH:mm:ss").format("LLLL")
             // creates elements for response data and pushes to page
             var eventCard = $("<div>").addClass("card");
             var eventContent = $("<div>").addClass("card-content").appendTo(eventCard);
@@ -133,7 +135,7 @@ $("body").on("click", "#runButton", function () {
             var eventLink = $("<a>").attr("href", eventResult.url).appendTo(eventTitlePosition); //event link
             var eventTitle = $("<p>").addClass("title").addClass("is-4").text(eventResult.title).attr("id", "eventTitle").appendTo(eventLink); //event title
             var eventVenue = $("<div>").addClass("content").text(eventResult.venue_name).attr("id", "eventVenue").appendTo(eventContent); //event venue
-            var eventTime = $("<div>").addClass("content").text(eventResult.start_time).attr("id", "eventTime").appendTo(eventContent); //event time
+            var eventTime = $("<div>").addClass("content").text(startTime).attr("id", "eventTime").appendTo(eventContent); //event time
             var eventTimeSlice = (eventResult.start_time).slice(11);
             if (time === null) {
                 localStorage.setItem("time", "Both");
