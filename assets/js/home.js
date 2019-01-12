@@ -139,7 +139,7 @@ $("body").on("click", "#runButton", function () {
                 localStorage.setItem("time", "Both");
                 $(eventCard).addClass("goodTime");
             }
-            else if (time == "Day") {
+            else if (time == "Day (before 5)") {
                 if (moment(eventTimeSlice, "H:mm:ss") < moment("1700", "HHmm")) {
                     $(eventCard).addClass("goodTime");
                 }
@@ -147,7 +147,7 @@ $("body").on("click", "#runButton", function () {
                     $(eventCard).addClass("badTime")
                 };
             }
-            else if (time == "Night") {
+            else if (time === "Night (after 5)") {
                 if (moment(eventTimeSlice, "H:mm:ss") >= moment("1700", "HHmm")) {
                     $(eventCard).addClass("goodTime");
                 }

@@ -62,8 +62,8 @@
                 <!--day level-->
                 <div class="field">
                     <p class="control has-icons-left">
-                    <span class="select" id="dateSelect">
-                        <select>
+                    <span class="select" >
+                        <select id="daySelect">
                             <option selected>Day of the Week</option>
                             <option>Today</option>
                             <option>Sunday</option>
@@ -82,8 +82,8 @@
                 <!--time level-->
                 <div class="field">
                     <p class="control has-icons-left">
-                    <span class="select" id="timeSelect">
-                        <select>
+                    <span class="select"  >
+                        <select id="timeSelect">
                             <option selected>Time of Day</option>
                             <option>Day (before 5)</option>
                             <option>Night (after 5)</option>
@@ -97,10 +97,10 @@
                 <!--submit button-->  
                 <div class="field has-addons">
                         <div class="control">
-                          <input class="input" type="text" placeholder="Other Interest">
+                          <input class="input" type="text" placeholder="Other Interest" id="intInput">
                         </div>
                         <div class="control">
-                          <a class="button is-info">
+                          <a class="button is-info" id="submitBtn">
                             Submit
                           </a>
                         </div>
@@ -108,7 +108,7 @@
                     <!--save button-->
                 <div class="field is-group">
                         <p class="control">
-                            <a class="button is-link">
+                            <a class="button is-link" id="saveBtn" href="https://hughesrva.github.io/funkey-project/home.html">
                             Save
                             </a>
                         </p>
@@ -138,7 +138,6 @@
                 
                 
     <!--script links-->
-    <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
     <script src="assets/js/account.js"></script>
