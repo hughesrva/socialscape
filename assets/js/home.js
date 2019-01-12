@@ -12,7 +12,8 @@ var initMap = function () {
         if (status == "OK") {
             var mapOptions = {
                 zoom: 10,
-                center: results[0].geometry.location
+                center: results[0].geometry.location,
+                disableDefaultUI: true
             }
             map = new google.maps.Map(document.getElementById('map'), mapOptions);
         }
