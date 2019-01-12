@@ -24,6 +24,7 @@ $(document).ready(function () {
         $(intBtn).data("value", unselInts[i]);
         $(intBtn).data("state", "unsel");
         $("#unselInterests").append(intBtn);
+        $(".intBtn").addClass("button is-outlined");
     }
 
     for (i = 0; i < selInts.length; i++) {
@@ -32,13 +33,14 @@ $(document).ready(function () {
         $(intBtn).data("value", selInts[i]);
         $(intBtn).data("state", "sel");
         $("#selInterests").append(intBtn);
+        $(".intBtn").addClass("button is-dark is-outlined");
     }
 });
 
 // on click function for interest input submit button
 $("#submitBtn").on("click", function () {
     var inputValue = $("#intInput").val().trim();
-    if (inputValue === "" || parseInt(inputValue)) {}
+    if (inputValue === "" || parseInt(inputValue)) { }
     else {
         var newBtn = $("<button>").text(inputValue);
         selInts.push(inputValue);
@@ -70,11 +72,31 @@ $("body").on("click", ".intBtn", function () {
         $(this).detach().appendTo("#unselInterests");
         $(this).data("state", "unsel");
     }
+
 });
 
 // clears local storage and saves interests to local storage on save button click
 $("#saveBtn").on("click", function () {
-    if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {}
+    // modal activates if no city entered
+    if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {
+        $("#modalText").text("Please Select a City");
+        $("div.modal").addClass("is-active");
+    } 
+    // modal activates if no selected interests
+    else if (selInts[0] === undefined) {
+        $("#modalText").text("Please Select Interests");
+        $("div.modal").addClass("is-active");
+    }
+    // modal if no day selected
+    else if ($("#daySelect").val() === "Day of the Week") {
+        $("#modalText").text("Please Select a Day");
+        $("div.modal").addClass("is-active");
+    }
+    // modal if no time range selected
+    else if ($("#timeSelect").val() === "Time of Day") {
+        $("#modalText").text("Please Select a Time");
+        $("div.modal").addClass("is-active");
+    }
     else {
         localStorage.clear();
         localStorage.setItem("selInts", JSON.stringify(selInts));
@@ -82,5 +104,11 @@ $("#saveBtn").on("click", function () {
         localStorage.setItem("city", JSON.stringify($("#cityInput").val()));
         localStorage.setItem("day", $("#daySelect").val());
         localStorage.setItem("time", $("#timeSelect").val());
+        // if form is complete, links to "home" page
+        window.location.href = "https://hughesrva.github.io/funkey-project/home.html";
     }
+});
+// incomplete form Modal
+$("#OK").on("click", function () {
+    $("div.modal").removeClass("is-active");
 })

@@ -67,13 +67,9 @@ var setDate = function (weekday) {
         }
         // if today is before the day of the week requested
         else if (moment().day() < moment(weekday, "dddd").day()) {
-            // moment.js version of weekday
             day = moment(weekday, "dddd")
-            // weekday switched to YYYYMMDD format
             date = day.format("YYYYMMDD");
-            // add the extra 00 required by eventful API
             formatDate = date + "00";
-            // converts to a range (of one day, so not really much of a range)
             rangeDate = formatDate + "-" + formatDate;
             return rangeDate;
         }
@@ -122,6 +118,8 @@ $("body").on("click", "#runButton", function () {
         for (var i = 0; i < response.events.event.length; i++) {
             // set variable to clean up code
             let eventResult = response.events.event[i];
+            // convert start time from military time with seconds
+            let startTime = moment(eventResult.start_time, "YYYY-MM-DD HH:mm:ss").format("LLLL")
             // creates elements for response data and pushes to page
             var eventCard = $("<div>").addClass("card");
             var eventContent = $("<div>").addClass("card-content").appendTo(eventCard);
@@ -133,8 +131,10 @@ $("body").on("click", "#runButton", function () {
             var eventLink = $("<a>").attr("href", eventResult.url).appendTo(eventTitlePosition); //event link
             var eventTitle = $("<p>").addClass("title").addClass("is-4").text(eventResult.title).attr("id", "eventTitle").appendTo(eventLink); //event title
             var eventVenue = $("<div>").addClass("content").text(eventResult.venue_name).attr("id", "eventVenue").appendTo(eventContent); //event venue
-            var eventTime = $("<div>").addClass("content").text(eventResult.start_time).attr("id", "eventTime").appendTo(eventContent); //event time
+            var eventTime = $("<div>").addClass("content").text(startTime).attr("id", "eventTime").appendTo(eventContent); //event time
+            // gets hour and minute section of start time
             var eventTimeSlice = (eventResult.start_time).slice(11);
+            // loop marks times as valid or not
             if (time === null) {
                 localStorage.setItem("time", "Both");
                 $(eventCard).addClass("goodTime");
@@ -158,6 +158,8 @@ $("body").on("click", "#runButton", function () {
             else if (time == "Both") {
                 $(eventCard).addClass("goodTime");
             }
+            // marks "badTime" if event shows up erronously 
+            // else if ()
             $("#resultsContainer").prepend(eventCard);
             var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
             var contentString = '<div id="content">' +

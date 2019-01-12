@@ -7,6 +7,10 @@
     padding-top: 3px;
 }
 
+.intBtn{
+    margin: 3px;
+}
+
 #logo{
     margin: auto;
 }
@@ -19,10 +23,6 @@ p{
     height: 400px;
     width: 400px;
     background-color: grey;
-}
-
-.buttons{
-    padding-top: 3px;
 }
 
 #logo{
@@ -63,9 +63,6 @@ p{
 
 .hero.is-info .subtitle {
     font-weight: bold;
-}
-
-.goodTime {
 }
 
 .badTime {
