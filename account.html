@@ -73,6 +73,7 @@
                 <div class="field">
                     <label class="label is-small">Select Day</label>
                     <p class="control has-icons-left">
+<<<<<<< HEAD
                         <span class="select">
                             <select id="dateSelect">
                                 <option selected>Day of the Week</option>
@@ -87,6 +88,22 @@
                             </select>
                         </span>
                         <span class="icon is-small is-left"> </span>
+=======
+                    <span class="select" >
+                        <select id="daySelect">
+                            <option selected>Day of the Week</option>
+                            <option>Today</option>
+                            <option>Sunday</option>
+                            <option>Monday</option>
+                            <option>Tuesday</option>
+                            <option>Wednesday</option>
+                            <option> Thursday</option>
+                            <option>Friday</option>
+                            <option>Saturday</option>
+                        </select>
+                    </span>
+                    <span class="icon is-small is-left"> </span>
+>>>>>>> a2b86510a0717c1e0ab2389e4855f406d5a9b9ae
                     </p>
                 </div>
 
@@ -94,6 +111,7 @@
                 <div class="field">
                     <label class="label is-small">Select Time of Day</label>
                     <p class="control has-icons-left">
+<<<<<<< HEAD
                         <span class="select">
                             <select id="timeSelect">
                                 <option selected>Time of Day</option>
@@ -103,17 +121,28 @@
                             </select>
                         </span>
                         <span class="icon is-small is-left"> </span>
+=======
+                    <span class="select"  >
+                        <select id="timeSelect">
+                            <option selected>Time of Day</option>
+                            <option>Day (before 5)</option>
+                            <option>Night (after 5)</option>
+                            <option>Both</option>
+                        </select>
+                    </span>
+                    <span class="icon is-small is-left"> </span>
+>>>>>>> a2b86510a0717c1e0ab2389e4855f406d5a9b9ae
                     </p>
                 </div>
                 
                 <!--submit button-->  
                 <div class="field has-addons">
                         <div class="control">
-                          <input class="input" type="text" placeholder="Other Interest">
+                          <input class="input" type="text" placeholder="Other Interest" id="intInput">
                         </div>
                         
                         <div class="control">
-                          <a class="button is-info">
+                          <a class="button is-info" id="submitBtn">
                             Submit
                           </a>
                         </div>
@@ -122,7 +151,7 @@
                 <div class="field is-group">
                     
                         <p class="control">
-                            <a class="button is-link">
+                            <a class="button is-link" id="saveBtn" href="https://hughesrva.github.io/funkey-project/home.html">
                             Save
                             </a>
                         </p>

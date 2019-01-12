@@ -84,7 +84,7 @@ $("#saveBtn").on("click", function () {
         localStorage.setItem("selInts", JSON.stringify(selInts));
         localStorage.setItem("unselInts", JSON.stringify(unselInts));
         localStorage.setItem("city", JSON.stringify($("#cityInput").val()));
-        localStorage.setItem("day", JSON.stringify($("#dateSelect").val()));
-        localStorage.setItem("time", JSON.stringify($("#timeSelect").val()));
+        localStorage.setItem("day", $("#daySelect").val());
+        localStorage.setItem("time", $("#timeSelect").val());
     }
 })
