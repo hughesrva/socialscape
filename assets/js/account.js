@@ -79,22 +79,22 @@ $("body").on("click", ".intBtn", function () {
 $("#saveBtn").on("click", function () {
     // modal activates if no city entered
     if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {
-        console.log("select city!");
+        $("#modalText").text("Please Select a City");
         $("div.modal").addClass("is-active");
     } 
     // modal activates if no selected interests
     else if (selInts[0] === undefined) {
-        console.log("select interests!");
+        $("#modalText").text("Please Select Interests");
         $("div.modal").addClass("is-active");
     }
     // modal if no day selected
     else if ($("#daySelect").val() === "Day of the Week") {
-        console.log("select desired day!");
+        $("#modalText").text("Please Select a Day");
         $("div.modal").addClass("is-active");
     }
     // modal if no time range selected
     else if ($("#timeSelect").val() === "Time of Day") {
-        console.log("select time range!");
+        $("#modalText").text("Please Select a Time");
         $("div.modal").addClass("is-active");
     }
     else {

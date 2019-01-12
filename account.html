@@ -72,20 +72,18 @@
             <div class="level">
 
                 <!--location level-->
-                <div class="level-left">
+                <!-- <div class="level-left"> -->
 
-                    <!--city, state input-->
-                    <div class="field">
-                        <label class="label is-small">Select City</label>
-                        <div class="control is-pulled-left">
-                            <input class="input is-info" id="cityInput" type="text" placeholder="Richmond, VA">
-                        </div>
+                <!--city, state input-->
+                <div class="field">
+                    <div class="control is-pulled-left">
+                        <input class="input is-info" id="cityInput" type="text" placeholder="Richmond, VA">
                     </div>
                 </div>
+                <!-- </div> -->
 
                 <!--day level-->
                 <div class="field">
-                    <label class="label is-small">Select Day</label>
                     <p class="control has-icons-left">
                         <span class="select">
                             <select id="daySelect">
@@ -106,7 +104,6 @@
 
                 <!--time level-->
                 <div class="field">
-                    <label class="label is-small">Select Time Range</label>
                     <p class="control has-icons-left">
                         <span class="select">
                             <select id="timeSelect">
@@ -121,48 +118,49 @@
                 </div>
 
                 <!--submit button-->
-                <div class="field has-addons">
-                    <div class="control">
-                        <input class="input" type="text" placeholder="New Interest" id="intInput">
-                    </div>
+                <div class="field">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input class="input" type="text" placeholder="New Interest" id="intInput">
+                        </div>
 
-                    <div class="control">
-                        <a class="button is-info" id="submitBtn">
-                            Add
-                        </a>
+                        <div class="control">
+                            <a class="button is-info" id="submitBtn">
+                                Add
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <!--save button-->
                 <div class="field is-group">
-                    <!-- href="https://hughesrva.github.io/funkey-project/home.html" -->
-                    <p class="control">
-                        <a class="button is-link" id="saveBtn">
+                    <div class="control">
+                        <button class="button is-link is-medium" id="saveBtn">
                             Save
-                        </a>
-                    </p>
+                        </button>
+                    </div>
                 </div>
 
             </div>
         </div>
-        </div>
+    </section>
 
-        <!--selected interest-->
-        <section class="section">
-            <div class="container" id="selInterests">
-                <div class="control">
-                    <div class="field">
-                        <label class="label is-medium">Selected Interests</label>
-                    </div>
+    <!--selected interest-->
+    <section class="section">
+        <div class="container" id="selInterests">
+            <div class="control">
+                <div class="field">
+                    <label class="label is-medium">Selected Interests</label>
                 </div>
-        </section>
-        <!--common interest-->
-        <section class="section">
-            <div class="container" id="unselInterests">
-                <div class="control">
-                    <div class="field">
-                        <label class="label is-medium">Common Interests</label>
-                    </div>
-        </section>
+            </div>
+    </section>
+    <!--common interest-->
+    <section class="section">
+        <div class="container" id="unselInterests">
+            <div class="control">
+                <div class="field">
+                    <label class="label is-medium">Common Interests</label>
+                </div>
+    </section>
     </section>
     </div>
 
