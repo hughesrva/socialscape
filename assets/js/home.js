@@ -11,7 +11,7 @@ var initMap = function () {
     geocoder.geocode({ address: address }, function (results, status) {
         if (status == "OK") {
             var mapOptions = {
-                zoom: 10,
+                zoom: 11,
                 center: results[0].geometry.location,
                 disableDefaultUI: true
             }
