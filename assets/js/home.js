@@ -159,7 +159,7 @@ $("body").on("click", "#runButton", function () {
                 $(eventCard).addClass("goodTime");
             }
             // marks "badTime" if event shows up erronously 
-            else if ()
+            // else if ()
             $("#resultsContainer").prepend(eventCard);
             var eventPosition = { lat: JSON.parse(eventResult.latitude), lng: JSON.parse(eventResult.longitude) };
             var contentString = '<div id="content">' +
