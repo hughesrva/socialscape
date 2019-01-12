@@ -77,8 +77,10 @@ $("body").on("click", ".intBtn", function () {
 
 // clears local storage and saves interests to local storage on save button click
 $("#saveBtn").on("click", function () {
-    console.log("clicke");
-    if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {}
+    if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {
+        console.log("no city");
+        $("div.modal").addClass("is-active");
+    }
     else {
         localStorage.clear();
         localStorage.setItem("selInts", JSON.stringify(selInts));
@@ -87,4 +89,8 @@ $("#saveBtn").on("click", function () {
         localStorage.setItem("day", $("#daySelect").val());
         localStorage.setItem("time", $("#timeSelect").val());
     }
+});
+// incomplete form Modal
+$("#OK").on("click", function(){
+    $("div.modal").removeClass("is-active");
 })
