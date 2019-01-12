@@ -74,6 +74,7 @@ $("body").on("click", ".intBtn", function () {
 
 // clears local storage and saves interests to local storage on save button click
 $("#saveBtn").on("click", function () {
+    console.log("clicke");
     if ($("#cityInput").val() === "" || parseInt($("#cityInput").val())) {}
     else {
         localStorage.clear();
