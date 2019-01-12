@@ -56,7 +56,11 @@ p{
     bottom: 550px; 
 
 }
+<<<<<<< HEAD
 .button .is-started {
+=======
+.button.is-danger {
+>>>>>>> dd2385cb4141849f91a90fe79ccf2b0d54dd6644
     background-color: white;
     color: black;
 }
